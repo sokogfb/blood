@@ -1,0 +1,21 @@
+.footer{
+		position: fixed;
+	    bottom: 0%;
+	    height: 40px;
+	    width: 100%;
+	    background-color: grey;		
+}
+
+table, th, td {
+                border: 2px solid red;
+                border-collapse: collapse;
+                width: 1000px;
+        }
+        th, td {
+                padding: 10px;
+                text-align: center;
+		}
+		
+
+
+

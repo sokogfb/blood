@@ -1,0 +1,15 @@
+{% extends 'user/base.html' %}
+
+{% block content %}
+
+    {% if request.user.is_authenticated %}
+    	<br>
+        <p><b>Name:</b> {{ user.first_name }} {{ user.last_name }}</p>
+        <p><b>Email:</b> {{ user.email }}</p>
+    {% endif %}
+
+    <div class="text-bottom">
+        <a href="{% url 'edit_profile' %}"><button type="submit" class="btn btn-secondary">Edit Profile</button></a>
+    </div
+
+{% endblock %}
