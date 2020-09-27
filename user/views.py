@@ -1,14 +1,15 @@
-from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.models import User
-from django.contrib import messages
+from django.shortcuts import render, redirect
+
 from .forms import UserInfo, RegisterForm, EditProfileForm
 from .models import Info
 
 
 def index(request):
     return render(request, 'user/blood.html')
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -22,10 +23,12 @@ def user_login(request):
             return redirect('login')
     return render(request, 'user/login.html', {})
 
+
 def user_logout(request):
     logout(request)
     messages.success(request, 'Logged out')
     return redirect('index')
+
 
 def register(request):
     if request.method == 'POST':
@@ -36,7 +39,8 @@ def register(request):
             return redirect('login')
     else:
         form = RegisterForm()
-    return render(request, 'user/register.html', {'form':form})
+    return render(request, 'user/register.html', {'form': form})
+
 
 def change_password(request):
     if request.method == 'POST':
@@ -48,10 +52,12 @@ def change_password(request):
             return redirect('login')
     else:
         form = PasswordChangeForm(user=request.user)
-    return render(request, 'user/change_password.html', {'form':form})
+    return render(request, 'user/change_password.html', {'form': form})
+
 
 def profile(request):
     return render(request, 'user/profile.html', {})
+
 
 def edit_profile(request):
     if request.method == 'POST':
@@ -62,10 +68,12 @@ def edit_profile(request):
             return redirect('profile')
     else:
         form = EditProfileForm(instance=request.user)
-    return render(request, 'user/edit_profile.html', {'form':form})
+    return render(request, 'user/edit_profile.html', {'form': form})
+
 
 def forgotten_password(request):
     return render(request, 'user/forgotten_password.html', {})
+
 
 def blood_donors(request):
     info = Info.objects.all()
@@ -77,8 +85,8 @@ def donate_blood(request):
         form = UserInfo(request.POST)
         if form.is_valid():
             new_user = Info(name=request.POST['name'], age=request.POST['age'], email=request.POST['email'],
-                        address=request.POST['address'], contact_number=request.POST['contact_number'],
-                        blood_group=request.POST['blood_group'])
+                            address=request.POST['address'], contact_number=request.POST['contact_number'],
+                            blood_group=request.POST['blood_group'])
             new_user.save()
             return redirect('index')
     else:
